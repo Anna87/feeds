@@ -13,9 +13,9 @@ This is Java application that polls a news feed in a freely configurable interva
 ## Setup
 
 * Create a new database<br/>
-    ``mysql> create database feeds; -- Creates the new database``
-    ``mysql> create user 'admin' identified by 'admin'; -- Creates the user``
-    ``mysql> mysql> grant select, insert, delete, update on feeds.* to 'admin'; -- Gives privileges for new user on the newly created database``
+    ``create database feeds; -- Creates the new database`` <br/>
+    ``create user 'admin' identified by 'admin'; -- Creates the user`` <br/>
+    ``grant select, insert, delete, update on feeds.* to 'admin'; -- Gives privileges for new user on the newly created database``
     
 * Execute jar file<br/>
 download jar file https://github.com/Anna87/feeds/blob/master/target/feeds-0.0.1-SNAPSHOT.jar and execute next command:
