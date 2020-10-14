@@ -25,6 +25,6 @@ download jar file https://github.com/Anna87/feeds/blob/master/target/feeds-0.0.1
 
 Now application is running and you can use it by using postman or some similar tool. You have two HTTP endpoints that you can use:
 
-``GET http://localhost:8080/api/articles?page=1``
+``GET http://localhost:8080/api/articles?page=1&size=10``
 
-``http://localhost:8080/api/images/{id}/download`` where "id" is Image ID from database Images
+``http://localhost:8080/api/images/{id}/download`` where "id" is imageId from articles
