@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 @Builder
 public class Enclosure {
-    private int length;
-    private String type;
-    private String url;
+    int length;
+    String type;
+    String url;
 }

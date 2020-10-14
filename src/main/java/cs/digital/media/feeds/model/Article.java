@@ -1,20 +1,24 @@
 package cs.digital.media.feeds.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "article")
-@Value
 @Builder(toBuilder = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    long id;
 
     String title;
 

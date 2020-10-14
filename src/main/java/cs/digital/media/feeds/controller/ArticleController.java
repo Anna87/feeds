@@ -1,22 +1,40 @@
 package cs.digital.media.feeds.controller;
 
+import cs.digital.media.feeds.converter.ArticleResponseConverter;
+import cs.digital.media.feeds.dto.response.ArticleResponse;
 import cs.digital.media.feeds.model.Article;
-import cs.digital.media.feeds.repository.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import cs.digital.media.feeds.service.ArticleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/articles")
+@RequestMapping(path = "/api/articles")
+@RequiredArgsConstructor
 public class ArticleController {
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    private final ArticleResponseConverter articleResponseConverter;
+    private final ArticleService articleService;
 
-    @PostMapping(path="/add")
-    public void add() {
-        Article article = Article.builder().title("anyStr").build();
-        articleRepository.save(article);
+    @GetMapping
+    public Page<ArticleResponse> getAll(
+            @PageableDefault
+            @SortDefault.SortDefaults({@SortDefault(sort = "publicationDate",
+                    direction = Sort.Direction.DESC)}) final Pageable pageable
+    ) {
+        final Page<Article> articlePage = articleService.getAll(pageable);
+
+        return new PageImpl<ArticleResponse>(
+                articleResponseConverter.convertList(articlePage.getContent()),
+                pageable,
+                articlePage.getTotalElements()
+        );
     }
 }

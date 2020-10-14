@@ -9,6 +9,8 @@ import cs.digital.media.feeds.scheduler.WrongContentException;
 import feign.FeignException;
 import feign.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -65,5 +67,9 @@ public class ArticleService {
 
         return fileOptional.flatMap(file -> fileStorageService.save(file, item.getEnclosure().getType()));
 
+    }
+
+    public Page<Article> getAll(final Pageable pageable) {
+        return articleRepository.findAll(pageable);
     }
 }
