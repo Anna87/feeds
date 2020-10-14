@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 
 
 @Repository
@@ -15,5 +14,5 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 
     Page<Article> findAll(Pageable pageable);
 
-    List<Article> findByTitleAndPublicationDate(String title, Date pubDate);
+    boolean existsByTitleAndPublicationDate(String title, Date pubDate);
 }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,8 +49,9 @@ public class ArticleService {
 
             for (Item item : items) {
 
-                final List<Article> articles = articleRepository.findByTitleAndPublicationDate(item.getTitle(), item.getPubDate());
-                if (articles.size() > 0) return;
+                if (articleRepository.existsByTitleAndPublicationDate(item.getTitle(), item.getPubDate())){
+                    return;
+                }
 
                 final Article.ArticleBuilder articleBuilder = Article.builder();
 
