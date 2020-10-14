@@ -13,7 +13,7 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    public Optional<Image> getById(long id) {
+    public Optional<Image> getById(Long id) {
         return imageRepository.findById(id);
     }
 }

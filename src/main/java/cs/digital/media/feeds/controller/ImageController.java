@@ -1,6 +1,5 @@
 package cs.digital.media.feeds.controller;
 
-import cs.digital.media.feeds.model.Image;
 import cs.digital.media.feeds.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/image")
@@ -22,11 +19,9 @@ public class ImageController {
     private final ImageService imageService;
 
     @GetMapping(value = "/{id}/download")
-    public ResponseEntity<Resource> download(@PathVariable("id") final long id) {
+    public ResponseEntity<Resource> download(@PathVariable("id") final Long id) {
 
-        final Optional<Image> imageOptional = imageService.getById(id);
-
-        return imageOptional
+        return imageService.getById(id)
                 .map(value ->
                         ResponseEntity.ok()
                                 .contentType(MediaType.parseMediaType(value.getType()))

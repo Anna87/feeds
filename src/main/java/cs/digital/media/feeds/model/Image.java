@@ -8,23 +8,25 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "image")
-@Builder
+@Table(name = "IMAGE")
+@Builder(toBuilder = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Image {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-
-    int length;
+    Long id;
 
     String type;
+
+    String url;
 
     @Lob
     byte[] body;
 
     @OneToOne(mappedBy = "image")
     Article article;
+
 }

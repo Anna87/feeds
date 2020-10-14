@@ -10,6 +10,6 @@ spring:
 
 feeds:
   scheduler:
-    rate: 5000
+    cron: "* * * * * *"
   nos:
     url: http://feeds.nos.nl/nosjournaal?format=xml

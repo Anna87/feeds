@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "article", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "publicationDate"}))
+@Table(name = "ARTICLE", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "publicationDate"}))
 @Builder(toBuilder = true)
 @Data
 @NoArgsConstructor
@@ -27,7 +27,8 @@ public class Article {
 
     Date publicationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     Image image;
+
 }
