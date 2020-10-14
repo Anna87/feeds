@@ -9,6 +9,8 @@ import cs.digital.media.feeds.scheduler.WrongContentException;
 import feign.FeignException;
 import feign.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,12 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ArticleService {
     private final FeedsNosClient feedsNosClient;
 
@@ -31,7 +35,7 @@ public class ArticleService {
 
     private final ImageHelper imageHelper;
 
-    public void getNewPost() {
+    public void loadNewArticles() {
 
         final Response response = feedsNosClient.getItems();
 
@@ -45,6 +49,10 @@ public class ArticleService {
             final Item[] items = itemMapper.mapToItem(inputStream);
 
             for (Item item : items) {
+
+                final List<Article> articles = articleRepository.findByTitleAndPublicationDate(item.getTitle(), item.getPubDate());
+                if (articles.size() > 0) return;
+
                 final Article.ArticleBuilder articleBuilder = Article.builder();
 
                 getImage(item)
@@ -57,7 +65,9 @@ public class ArticleService {
 
                 articleRepository.save(articleBuilder.build());
             }
-        } catch (final IOException e) {
+        } catch (ConstraintViolationException e) {
+            log.warn("Can not add new item because item already exist");
+        } catch (IOException e) {
             throw new WrongContentException(e);
         }
     }

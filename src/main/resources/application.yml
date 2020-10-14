@@ -1,15 +1,15 @@
-jpa:
-  hibernate:
-    ddl-auto: update
 
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/feeds?serverTimezone=UTC
     username: admin
     password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 feeds:
   scheduler:
-    rate: 60000
+    rate: 5000
   nos:
     url: http://feeds.nos.nl/nosjournaal?format=xml

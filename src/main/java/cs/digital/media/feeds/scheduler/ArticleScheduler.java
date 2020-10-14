@@ -14,7 +14,7 @@ public class ArticleScheduler {
     @Scheduled(fixedRateString = "${feeds.scheduler.rate}")
     public void getNewArticles() {
 
-        articleService.getNewPost();
+        articleService.loadNewArticles();
 
 
     }

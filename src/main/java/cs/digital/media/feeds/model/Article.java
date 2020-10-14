@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "article")
+@Table(name = "article", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "publicationDate"}))
 @Builder(toBuilder = true)
 @Data
 @NoArgsConstructor
